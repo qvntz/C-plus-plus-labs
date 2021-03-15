@@ -1,6 +1,6 @@
 # Задания
-1) Matrix class
-2) Average temperature
-3) Block weight
-4) Regional database
-5) Task Tracker
+1) Matrix class **(easy)**
+2) Average temperature **(easy)**
+3) Block weight **(easy)**
+4) Regional database **(easy)**
+5) Task Tracker **(beautiful)**
