@@ -1,4 +1,4 @@
-# Задания
+# Tasks
 1) Matrix class **(easy)**
 2) Average temperature **(easy)**
 3) Block weight **(easy)**
