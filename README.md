@@ -18,7 +18,7 @@ void TestSomething() {
 
 void TestAll() {
 	TestRunner tr;
-	tr.RunTeset(TestSomething, "TestSomething");
+	tr.RunTest(TestSomething, "TestSomething");
 }
 
 int main() {
