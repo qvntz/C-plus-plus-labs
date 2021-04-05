@@ -6,3 +6,5 @@
 3) Deleting duplicates **(easy)**
 4) Permutations in reverse lexicographic order **(easy)**
 5) Demographics **(normal)**
+6) Merge sort div 2 **(easy)**
+7) Merge sort div 3 **(easy)**
