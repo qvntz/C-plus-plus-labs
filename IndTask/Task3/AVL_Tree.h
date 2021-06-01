@@ -20,7 +20,6 @@ class AVLTree {
     Node* root;
     int size_;
 
-    //очистить дерево/передать корень дерева
     void makeEmpty(Node* node) {
         if (node == NULL) return;
         makeEmpty(node->left);
@@ -29,7 +28,7 @@ class AVLTree {
         delete node;
     }
 
-    //создание узла с заданным ключом и значением, возвращает указатель на новый узел
+
     Node* newNode(t1 key, t2 value) {
         Node* temp = new Node;
         temp->key = key;
@@ -39,7 +38,7 @@ class AVLTree {
         return temp;
     }
 
-    //ищет узел с заданным ключом и возвращает его
+
     Node* findKey(Node* node, t1 key) {
         if (node == nullptr) return nullptr;
         else if (node->key == key) return node;
@@ -47,7 +46,7 @@ class AVLTree {
         return findKey(node->left, key);
     }
 
-    //ищет узел с заданным значением и возвращает его
+
     Node* findValue(Node* node, t2 value) {
         if (node == nullptr) return nullptr;
         else if (node->value == value) return node;
@@ -56,7 +55,7 @@ class AVLTree {
     }
 
 
-    //вставка и балансировка дерева (данные для вставки, узел корневого дерева)
+
     Node* insert(t1 key, t2 value, Node* node) {
         if (node == NULL) {
             node = newNode(key, value);
@@ -92,7 +91,7 @@ class AVLTree {
         return node;
     }
 
-    //однократное вращение поддерева вправо
+
     Node* singleRightRotate(Node*& node) {
         Node* tmp = node->left;
         node->left = tmp->right;
@@ -106,7 +105,7 @@ class AVLTree {
         return tmp;
     }
 
-    //тоже самое влево
+
     Node* singleLeftRotate(Node*& node) {
         Node* tmp = node->right;
         node->right = tmp->left;
@@ -122,33 +121,33 @@ class AVLTree {
         return tmp;
     }
 
-    //два раза влево
+
     Node* doubleLeftRotate(Node*& node) {
         node->right = singleRightRotate(node->right);
         return singleLeftRotate(node);
     }
 
-    //два раза вправо
+ 
     Node* doubleRightRotate(Node*& node) {
         node->left = singleLeftRotate(node->left);
         return singleRightRotate(node);
     }
 
-    //поиск минимального значения поддерева
+ 
     Node* findMin(Node* node) {
         if (node == NULL) return NULL;
         else if (node->left == NULL) return node;
         else return findMin(node->left);
     }
 
-    //а тут максимального
+
     Node* findMax(Node* node) {
         if (node == NULL) return NULL;
         else if (node->right == NULL) return node;
         else return findMax(node->right);
     }
 
-    //удаляет узел с заданными данными из поддерева
+
     Node* remove(t1 key, t2 value, Node* node) {
         Node* temp;
 
@@ -183,17 +182,17 @@ class AVLTree {
         return node;
     }
 
-    //возвращает высоту заданного поддерева / -1 если корень равен нулевому указателю
+
     int height(Node* node) {
         return node == NULL ? -1 : node->height;
     }
 
-    //возврат баланса данного узла ( разница между высотой правого и левого поддерева )
+
     int getBalance(Node* node) {
         return node == NULL ? 0 : height(node->left) - height(node->right);
     }
 
-    //тут принт как в питоне только на с++ ( спейс - отступ )
+
     void print(Node* node, int space) {
         int COUNT = 10;
         if (node == NULL) return;
@@ -215,42 +214,34 @@ public:
     class Iterator {
         Node* it;
     public:
-        //тут конструктор по умолчанию, как в с++
         Iterator() { it = nullptr; }
 
-        //конструктор с указателем на узел
         Iterator(Node* element) {
             it = element;
         }
 
-        //деструктор
         ~Iterator() {}
 
-        //конструктор копирования
         Iterator(const Iterator& cc) { it = cc.it; }
 
 
-        //оператор равно
         Iterator operator=(const Iterator& iterator) {
             if (this == &iterator) return *this;
             it = iterator.it;
             return *this;
         }
 
-        //оператор плюс (переместить итератор вперед на длину позиции)
         Iterator operator+(int length) {
             if (length > 0) for (int i = 0; it && it->next && i < length; i++) it = it->next;
             return *this;
         }
 
-        //тоже самое только минус
         Iterator operator-(int length) {
             if (length > 0) for (int i = 0; it && it->next && i < length; i++) it = it->prev;
             return *this;
         }
 
 
-        //оператор плюс плюс
         Iterator& operator++() {
             Node* p;
 
@@ -278,7 +269,6 @@ public:
             return *this;
         }
 
-        //какой-то из них постфиксный, а какой-то префиксный ( не помню )
         const Iterator<K, I> operator++(int) {
             if (!it) return *this;
             else {
@@ -308,7 +298,6 @@ public:
             }
         }
 
-        //это как плюс плюс только минус минус
         Iterator& operator--() {
             Node* p;
 
@@ -336,7 +325,6 @@ public:
             return *this;
         }
 
-        //это как минус минус только с другой стороны
         const Iterator<K, I> operator--(int) {
             if (!it) return *this;
             else {
@@ -366,25 +354,18 @@ public:
             }
         }
 
-        //это как равно, только сравнение ( сравнивает что это один объект )
         bool operator==(Iterator iterator) const { return it == iterator.it; }
 
-        //это как сравнение, только на неравенство
         bool operator!=(Iterator iterator) const { return it != iterator.it; }
 
-        //разыменование оператора
         Node& operator*() const { return *it; }
 
-        //доступ к указателю итератора
         Node* operator->() const { return it; }
 
-        //геттер кей
         t1 getKey() { return it->key; }
 
-        //геттер валуе
         t2 getValue() { return it->value; }
 
-        //оператор вывода
         friend ostream& operator<<(ostream& output, const Iterator& iter) {
             output << *iter;
             return output;
@@ -395,7 +376,6 @@ public:
     typedef Iterator<t1, t2> TreeIterator;
     typedef Iterator<const t1, const t2> ConstTreeIterator;
 
-    //итератор на начало
     TreeIterator begin() {
         Node* curr = root;
         if (curr != NULL)
@@ -405,24 +385,19 @@ public:
         return TreeIterator(curr);
     }
 
-    //конец
     TreeIterator end() {
         return TreeIterator(nullptr);
     }
 
-    //константый итератор на первый элемент
     ConstTreeIterator constBegin() const { return ConstRingIterator(root); }
 
-    //константный итератор на последний элемент
     ConstTreeIterator constEnd() const { return ConstRingIterator(root); }
 
-    //конструктор
     AVLTree() {
         size_ = 0;
         root = NULL;
     }
 
-    //конструктор копирования
     AVLTree(AVLTree& tree) {
         root = NULL;
         for (TreeIterator it = tree.begin(); it != tree.end(); it++) {
@@ -435,7 +410,6 @@ public:
         makeEmpty(root);
     }
 
-    //вставка в это дерево (key, value)
     void insert(t1 x, t2 y=1) {
         if (searchKey(x) == nullptr) {
             root = insert(x, y, root);
@@ -447,7 +421,6 @@ public:
         change_size(y);
     }
 
-    //удаление узла по ключу
     void remove(t1 x) {
         t2 y = searchKey(x)->value;
         change_size(-y);
@@ -458,23 +431,19 @@ public:
         return size_;
     }
 
-    //ищет узел с заданным ключом
     Node* searchKey(t1 key) {
         return findKey(root, key);
     }
 
-    //ищет узел с заданным значением
     Node* searchValue(t2 value) {
         return findValue(root, value);
     }
 
-    //печатает дерево
     void print() {
         if (root == nullptr) cout << "Empty tree" << endl;
         print(root, 1);
     }
 
-    //оператор скобочек
     t2 operator[](t1 key) {
         if (searchKey(key) == nullptr) {
             throw std::invalid_argument("Tree does not have such key");
@@ -483,7 +452,6 @@ public:
         return val;
     }
 
-    //оператор круглых скобочек
     t1 operator()(t2 value) {
         if (searchValue(value) == nullptr) {
             throw std::invalid_argument("Tree does not have such key");
@@ -492,7 +460,6 @@ public:
         return key;
     }
 
-    //равно равно
     friend bool operator==(AVLTree& tree1, AVLTree& tree2) {
         if (tree2.root == nullptr && tree1.root == nullptr) return true;
         TreeIterator it = tree2.begin();
@@ -506,7 +473,6 @@ public:
     }
 
 
-    //оператор равно
     AVLTree& operator=(const AVLTree& tree) {
         auto* newTree = new AVLTree(tree);
         return *newTree;
